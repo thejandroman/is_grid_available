@@ -3,6 +3,7 @@
 
 require 'mqtt'
 require 'logger'
+require 'raspi-gpio'
 require 'dotenv'
 Dotenv.load('.env.local', '.env')
 
@@ -19,6 +20,12 @@ def env(variable)
   ENV[variable]
 end
 
+red_led = GPIO.new(env('RED_LED_PIN'))
+red_led.set_mode(OUT)
+
+green_led = GPIO.new(env('GREEN_LED_PIN'))
+green_led.set_mode(OUT)
+
 client = MQTT::Client.connect(
   host: env('MQTT_HOST'),
   port: env('MQTT_PORT')
@@ -31,9 +38,14 @@ client.disconnect
 @logger.info("Grid voltage: #{grid_voltage}")
 
 if grid_voltage.to_i > env('LOW_VOLTAGE_THRESHOLD').to_i
-  # Turn on the green light
   @logger.info('Grid appears to be available. Turning on green light.')
+  red_led.set_value(LOW)
+  green_led.set_value(HIGH)
 else
-  # Turn on the red light
   @logger.info('Grid does not appear to be available. Turning on red light.')
+  green_led.set_value(LOW)
+  red_led.set_value(HIGH)
 end
+
+@logger.debug("Red LED status: #{red_led.get_value}")
+@logger.debug("Green LED status: #{green_led.get_value}")

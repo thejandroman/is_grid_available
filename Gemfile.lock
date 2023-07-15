@@ -3,13 +3,16 @@ GEM
   specs:
     dotenv (2.8.1)
     mqtt (0.6.0)
+    raspi-gpio (1.0.1)
 
 PLATFORMS
+  arm-linux
   x86_64-linux
 
 DEPENDENCIES
   dotenv (~> 2.8)
   mqtt (~> 0.6.0)
+  raspi-gpio (~> 1.0)
 
 BUNDLED WITH
-   2.4.16
+   2.4.17
