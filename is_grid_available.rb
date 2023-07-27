@@ -21,10 +21,7 @@ def env(variable)
 end
 
 red_led = GPIO.new(env('RED_LED_PIN'))
-red_led.set_mode(OUT)
-
 green_led = GPIO.new(env('GREEN_LED_PIN'))
-green_led.set_mode(OUT)
 
 client = MQTT::Client.connect(
   host: env('MQTT_HOST'),
@@ -39,11 +36,21 @@ client.disconnect
 
 if grid_voltage.to_i > env('LOW_VOLTAGE_THRESHOLD').to_i
   @logger.info('Grid appears to be available. Turning on green light.')
+  red_led.set_mode(OUT)
   red_led.set_value(LOW)
+
+  return if green_led.get_value == 1
+
+  green_led.set_mode(OUT)
   green_led.set_value(HIGH)
 else
   @logger.info('Grid does not appear to be available. Turning on red light.')
+  green_led.set_mode(OUT)
   green_led.set_value(LOW)
+
+  return if red_led.get_value == 1
+
+  red_led.set_mode(OUT)
   red_led.set_value(HIGH)
 end
 
