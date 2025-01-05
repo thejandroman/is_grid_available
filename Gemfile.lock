@@ -2,17 +2,28 @@ GEM
   remote: https://rubygems.org/
   specs:
     dotenv (2.8.1)
+    language_server-protocol (3.17.0.3)
     mqtt (0.6.0)
+    prettier_print (1.2.1)
     raspi-gpio (1.0.1)
+    ruby-lsp (0.5.1)
+      language_server-protocol (~> 3.17.0)
+      sorbet-runtime
+      syntax_tree (>= 6.1.1, < 7)
+    sorbet-runtime (0.5.11718)
+    syntax_tree (6.2.0)
+      prettier_print (>= 1.2.0)
 
 PLATFORMS
   arm-linux
+  ruby
   x86_64-linux
 
 DEPENDENCIES
   dotenv (~> 2.8)
   mqtt (~> 0.6.0)
   raspi-gpio (~> 1.0)
+  ruby-lsp (~> 0.5.1)
 
 BUNDLED WITH
    2.4.17
