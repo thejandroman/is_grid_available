@@ -39,7 +39,7 @@ if mqtt_message.to_i > env('LOW_MQTT_THRESHOLD').to_i
   red_led.set_mode(OUT)
   red_led.set_value(LOW)
 
-  return if green_led.get_value == 1
+  return if green_led.get_value.to_i == 1
 
   green_led.set_mode(OUT)
   green_led.set_value(HIGH)
@@ -48,7 +48,7 @@ else
   green_led.set_mode(OUT)
   green_led.set_value(LOW)
 
-  return if red_led.get_value == 1
+  return if red_led.get_value.to_i == 1
 
   red_led.set_mode(OUT)
   red_led.set_value(HIGH)
