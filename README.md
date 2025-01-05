@@ -1,5 +1,5 @@
 # Is Grid Available
-This application reads the inverter grid value from solar assistant mqtt. If the grid voltage is correct it turns on a green LED. If the grid voltage is below a defined threshold it runs on a red LED. It was built to be run on a Raspberry Pi Zero W running Raspberry Pi OS Bullseye.
+This application reads the inverter frequency value from solar assistant mqtt. If the grid frequency is correct it turns on a green LED. If the grid frequency is below a defined threshold it turns on a red LED. It was built to be run on a Raspberry Pi Zero W running Raspberry Pi OS Bullseye.
 
 # Install
 ```

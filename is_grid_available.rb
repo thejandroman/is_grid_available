@@ -29,12 +29,12 @@ client = MQTT::Client.connect(
 )
 
 client.subscribe(env('MQTT_TOPIC'))
-_mqtt_topic, grid_voltage = client.get
+_mqtt_topic, mqtt_message = client.get
 client.disconnect
 
-@logger.info("Grid voltage: #{grid_voltage}")
+@logger.info("MQTT Message: #{mqtt_message}")
 
-if grid_voltage.to_i > env('LOW_VOLTAGE_THRESHOLD').to_i
+if mqtt_message.to_i > env('LOW_MQTT_THRESHOLD').to_i
   @logger.info('Grid appears to be available. Turning on green light.')
   red_led.set_mode(OUT)
   red_led.set_value(LOW)
